@@ -10,6 +10,6 @@ public record NotificationRequest(
         @NotBlank
         String email,
         @NotNull
-        OperationsOnUser operation
+        UserOperation operation
 ) {
 }
