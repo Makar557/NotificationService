@@ -2,20 +2,16 @@ package dybr.dev.notificationservice.kafka;
 
 import dybr.dev.notificationservice.model.NotificationRequest;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@RequiredArgsConstructor
 @RestController
-@RequestMapping("/notifications")
+@RequestMapping("/api/notifications")
 public class NotificationController {
 
     private final NotificationService notificationService;
-
-    public NotificationController(
-            NotificationService notificationService
-    ) {
-        this.notificationService = notificationService;
-    }
 
     @PostMapping
     public ResponseEntity<Void> sendNotification(
