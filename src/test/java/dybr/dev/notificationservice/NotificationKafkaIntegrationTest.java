@@ -18,12 +18,14 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.kafka.KafkaContainer;
 import org.testcontainers.utility.DockerImageName;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @Testcontainers
+@ActiveProfiles("test")
 class NotificationKafkaIntegrationTest {
 
     @Container
@@ -50,45 +52,15 @@ class NotificationKafkaIntegrationTest {
 
     @DynamicPropertySource
     static void properties(DynamicPropertyRegistry registry) {
-
         registry.add(
                 "spring.kafka.bootstrap-servers",
                 kafka::getBootstrapServers
-        );
-
-        registry.add(
-                "spring.mail.host",
-                () -> "localhost"
-        );
-
-        registry.add(
-                "spring.mail.port",
-                () -> 3025
-        );
-
-        registry.add(
-                "spring.mail.username",
-                () -> ""
-        );
-
-        registry.add(
-                "spring.mail.password",
-                () -> ""
-        );
-
-        registry.add(
-                "spring.mail.properties.mail.smtp.auth",
-                () -> false
-        );
-
-        registry.add(
-                "spring.mail.properties.mail.smtp.starttls.enable",
-                () -> false
         );
     }
 
     @Test
     void shouldSendEmailWhenUserCreated() throws Exception {
+
 
         greenMail.reset();
 
